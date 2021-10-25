@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+button,
+div {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+body {
+  background-color: #fad1ff;
+}
+body.loaded {
+  transition: background-color 0s 1s linear;
+  background-color: #cef;
+}
+
+.webgl {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  outline: none;
+
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.visible .webgl {
+  opacity: 1;
+}
+
+.loading-bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -10;
+
+  height: 5px;
+  width: 100vw;
+  background-color: #cef;
+
+  transform: translate(-50%, -50%) scaleX(0);
+  visibility: visible;
+  transition: transform 0.5s ease;
+}
+
+.loaded .loading-bar {
+  visibility: hidden;
+  transition: transform 1s ease, visibility 0s 1s linear;
+}
+
+.play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 194px;
+  width: 150px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.play img {
+  height: 100%;
+  width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.play:hover img {
+  transform: scale(0.95);
+}
+
+.play:active img {
+  transform: scale(0.9);
+}
+
+.loaded .play {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.25s 1s ease;
+}
+
+.visible .play {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0s 0.25s linear;
+}
+
+.tooltips {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible .tooltips {
+  opacity: 1;
+  transition: opacity 0.5s 0.25s ease;
+  pointer-events: auto;
+}
+
+.tooltip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.tooltip:hover .tooltip-text {
+  opacity: 1;
+}
+
+.tooltip-button,
+.tooltip-text {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  /* border: 2px solid #ffffff77; */
+  background-color: #00000044;
+  font-family: 'Noto Sans Symbols';
+}
+
+.tooltip-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: -20px;
+  left: -20px;
+
+  font-size: 20px;
+  line-height: 30px;
+  user-select: none;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: transform 0.2s ease;
+}
+
+.tooltip-button:hover {
+  transform: scale(0.9);
+}
+
+.tooltip-button:active {
+  transform: scale(0.8);
+}
+
+.tooltip-text {
+  position: absolute;
+  top: 30px;
+  left: -20px;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  width: 300px;
+  padding: 20px;
+  border-radius: 5px;
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  pointer-events: none;
+}
