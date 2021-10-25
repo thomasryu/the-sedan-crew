@@ -45,6 +45,13 @@ button.addEventListener('click', () => {
   document.body.classList.add('visible');
 });
 
+const playSoundtrack = () => {
+  const soundtrack = new Audio(`/sounds/soundtrack.mp3`);
+  soundtrack.volume = 0.03;
+  soundtrack.loop = true;
+  soundtrack.play();
+};
+
 /* MODELS */
 
 let logo = null;
@@ -73,7 +80,6 @@ const loadingManager = new THREE.LoadingManager(
   () => {
     window.setTimeout(() => {
       document.body.classList.add('loaded');
-      loadSoundButtons();
       window.requestAnimationFrame(() => {
         loadingBar.style.transform = `translate(-50%, -50%) scale(1, ${
           sizes.height / loadingBar.offsetHeight
@@ -146,155 +152,6 @@ gltfLoader.load('model-baked.glb', (gltf) => {
   });
   chassisNoShadow.receiveShadow = false;
 });
-
-/* TOOLTIPS */
-
-const tooltips = {
-  abeFishman: {
-    position: new THREE.Vector3(2.3, 3.8, -1),
-    element: document.querySelector('.tooltip-abe'),
-  },
-  commanderChaos: {
-    position: new THREE.Vector3(-5.3, 9, 0.5),
-    element: document.querySelector('.tooltip-commander'),
-  },
-  darkSuckaberg: {
-    position: new THREE.Vector3(5.7, 3.3, -2.7),
-    element: document.querySelector('.tooltip-dark'),
-  },
-  joeJonte: {
-    position: new THREE.Vector3(2.3, 3.8, 1.8),
-    element: document.querySelector('.tooltip-joe'),
-  },
-  johnnyDanger: {
-    position: new THREE.Vector3(6.6, 4.5, 3.5),
-    element: document.querySelector('.tooltip-johnny'),
-  },
-  fingleDan: {
-    position: new THREE.Vector3(-4.7, 5, -2.2),
-    element: document.querySelector('.tooltip-fingle'),
-  },
-};
-const tooltipsArray = Object.values(tooltips);
-
-const updateTooltips = () => {
-  tooltipsArray.forEach((tooltip) => {
-    const canvasPosition = tooltip.position.clone();
-    canvasPosition.project(camera);
-
-    const tooltipPosition = {
-      x: (canvasPosition.x * sizes.width) / 2,
-      y: -(canvasPosition.y * sizes.height) / 2,
-    };
-
-    tooltip.element.style.transform = `translateX(${tooltipPosition.x}px) translateY(${tooltipPosition.y}px)`;
-  });
-};
-
-// SOUNDS
-
-const abeSoundFiles = [
-  'chloroformed.mp3',
-  'i-ate-my-poo.mp3',
-  'im-also-a-x-nophobe.mp3',
-  'im-commin.mp3',
-];
-const commanderSoundFiles = ['fart-with-reverb.mp3'];
-const darkSoundFiles = [
-  'im-fingle-dan.mp3',
-  'poop-factory.mp3',
-  'sucka-suckaberg.mp3',
-  'whats-goodie.mp3',
-  'why-yo-tire-flat.mp3',
-  'YAFIMEE.mp3',
-];
-const fingleSoundFiles = [
-  'awooga-awooga.mp3',
-  'help.mp3',
-  'HEY-SONIC-LETS-GO.mp3',
-  'im-gonna-c-m.mp3',
-  'OH-F-CK.mp3',
-  'slash-revive.mp3',
-  'unban-me.mp3',
-];
-const joeSoundFiles = [
-  'alright.mp3',
-  'big-medic-isnt-real.mp3',
-  'he-was-ugly.mp3',
-  'well.mp3',
-  'yeah-yeah.mp3',
-];
-const johnnySoundFiles = ['AAAAA-AAAAA.mp3', 'its-too-dang-late.mp3'];
-
-const loadSoundButtons = () => {
-  const abeSounds = [];
-  abeSoundFiles.forEach((filename) => {
-    const sound = new Audio(`/sounds/abe-fishman/${filename}`);
-    abeSounds.push(sound);
-  });
-  const commanderSounds = [];
-  commanderSoundFiles.forEach((filename) => {
-    const sound = new Audio(`/sounds/commander-chaos/${filename}`);
-    commanderSounds.push(sound);
-  });
-  const darkSounds = [];
-  darkSoundFiles.forEach((filename) => {
-    const sound = new Audio(`/sounds/dark-suckaberg/${filename}`);
-    darkSounds.push(sound);
-  });
-  const fingleSounds = [];
-  fingleSoundFiles.forEach((filename) => {
-    const sound = new Audio(`/sounds/fingle-dan/${filename}`);
-    fingleSounds.push(sound);
-  });
-  const joeSounds = [];
-  joeSoundFiles.forEach((filename) => {
-    const sound = new Audio(`/sounds/joe-jonte/${filename}`);
-    joeSounds.push(sound);
-  });
-  const johnnySounds = [];
-  johnnySoundFiles.forEach((filename) => {
-    const sound = new Audio(`/sounds/johnny-danger/${filename}`);
-    johnnySounds.push(sound);
-  });
-
-  let sound;
-  const playRandomSound = (sounds) => {
-    if (sound) {
-      sound.pause();
-      sound.currentTime = 0;
-    }
-    sound = sounds[Math.floor(Math.random() * sounds.length)];
-    sound.volume = 0.25;
-    sound.play();
-  };
-
-  tooltips.abeFishman.element.addEventListener('click', () => {
-    playRandomSound(abeSounds);
-  });
-  tooltips.commanderChaos.element.addEventListener('click', () => {
-    playRandomSound(commanderSounds);
-  });
-  tooltips.darkSuckaberg.element.addEventListener('click', () => {
-    playRandomSound(darkSounds);
-  });
-  tooltips.fingleDan.element.addEventListener('click', () => {
-    playRandomSound(fingleSounds);
-  });
-  tooltips.joeJonte.element.addEventListener('click', () => {
-    playRandomSound(joeSounds);
-  });
-  tooltips.johnnyDanger.element.addEventListener('click', () => {
-    playRandomSound(johnnySounds);
-  });
-};
-
-const playSoundtrack = () => {
-  const soundtrack = new Audio(`/sounds/soundtrack.mp3`);
-  soundtrack.volume = 0.03;
-  soundtrack.loop = true;
-  soundtrack.play();
-};
 
 /* SIZES */
 
@@ -434,7 +291,6 @@ const tick = () => {
   // Render
   // renderer.render(scene, camera)
   effectComposer.render();
-  updateTooltips();
   window.requestAnimationFrame(tick);
 };
 
