@@ -1,7 +1,7 @@
 # The Sedan Crew™
 
-Just a little test with Three.js and Blender 3D models.
-<br/>Model and animations fully made by me.
+Just a little test with Blender 3D models and Three.js!
+<br/>Model and animations made by me :)
 
 ### Preview can be found [here](https://the-sedan-crew.netlify.app)
 <br/>
