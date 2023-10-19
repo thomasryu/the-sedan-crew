@@ -1,4 +1,4 @@
-# The Sedan Crew™
+# The SeDAN Crew
 
 Just a little test with Blender 3D models and Three.js!
 <br/>Model and animations made by me :)
